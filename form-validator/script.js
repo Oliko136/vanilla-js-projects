@@ -11,6 +11,7 @@ function handleSubmit(e) {
     checkRequired([username, email, password, password2]);
     checkLength(username, 3, 15);
     checkLength(password, 6, 25);
+    checkEmail(email);
 }
 
 // Check required inputs
@@ -35,6 +36,16 @@ function checkLength(input, min, max) {
     }
 }
 
+// Check if email is valid
+function checkEmail(email) {
+    const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (regEx.test(email.value.trim())) {
+        showSuccess(email);
+    } else {
+        showError(email, 'Email is not valid')
+    }
+}
+
 // Show input error message
 function showError(input, message) {
     const formControl = input.parentElement;
@@ -49,12 +60,6 @@ function showSuccess(input) {
     const formControl = input.parentElement;
     formControl.classList.remove('error');
     formControl.classList.add('success');
-}
-
-// Check if email is valid
-function isValidEmail(email) {
-    const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return String(email).toLowerCase().match(regEx);
 }
 
 // Capitalize
