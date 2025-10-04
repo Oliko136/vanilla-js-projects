@@ -12,6 +12,7 @@ function handleSubmit(e) {
     checkLength(username, 3, 15);
     checkLength(password, 6, 25);
     checkEmail(email);
+    checkPasswordsMatch(password, password2);
 }
 
 // Check required inputs
@@ -42,7 +43,16 @@ function checkEmail(email) {
     if (regEx.test(email.value.trim())) {
         showSuccess(email);
     } else {
-        showError(email, 'Email is not valid')
+        showError(email, 'Email is not valid');
+    }
+}
+
+// Check if passwords match
+function checkPasswordsMatch(pass1, pass2) {
+    if (pass1.value !== pass2.value || pass2.value === '') {
+        showError(pass2, 'Passwords do not match');
+    } else {
+        showSuccess(pass2);
     }
 }
 
