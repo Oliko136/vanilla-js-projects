@@ -4,6 +4,11 @@ const stop = document.getElementById('stop');
 const progress = document.getElementById('progress');
 const timestamp = document.getElementById('timestamp');
 
+// Get current time from local storage
+function loadVideo() {
+    video.currentTime = localStorage.getItem('currentTime') ? localStorage.getItem('currentTime') : 0;
+}
+
 // Play & pause video
 function toggleVideoStatus() {
     video.paused
@@ -20,6 +25,7 @@ function updatePlayIcon() {
 
 // Update progress & timestamp
 function updateProgress() {
+    localStorage.setItem('currentTime', video.currentTime);
     progress.value = (video.currentTime / video.duration) * 100;
 
     // Get minutes
@@ -59,3 +65,5 @@ video.addEventListener('timeupdate', updateProgress);
 play.addEventListener('click', toggleVideoStatus);
 stop.addEventListener('click', stopVideo);
 progress.addEventListener('change', setVideoProgress);
+
+loadVideo();
