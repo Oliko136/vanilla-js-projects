@@ -1,3 +1,5 @@
+const { useOptimistic } = require("react");
+
 const main = document.getElementById('main');
 const addUserBtn = document.getElementById('add-user');
 const doubleBtn = document.getElementById('double');
@@ -26,6 +28,13 @@ async function getRandomUser() {
     addData(newUser);
 }
 
+// Add new obj to data arr
+function addData(obj) {
+    data.push(obj);
+
+    updateDOM();
+}
+
 // Double everyone's money
 function doubleMoney() {
     data = data.map(person => {
@@ -35,9 +44,9 @@ function doubleMoney() {
     updateDOM();
 }
 
-// Add new obj to data arr
-function addData(obj) {
-    data.push(obj);
+// Sort users by richest
+function sortByRichest() {
+    data.sort((a, b) => b.money - a.money);
 
     updateDOM();
 }
@@ -63,3 +72,4 @@ function formatMoney(number) {
 // Event listeners
 addUserBtn.addEventListener('click', getRandomUser);
 doubleBtn.addEventListener('click', doubleMoney);
+sortBtn.addEventListener('click', sortByRichest);
